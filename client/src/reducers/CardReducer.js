@@ -18,8 +18,7 @@ export default (state = initialState, action) => {
         ...state,
         {
           id: action.id,
-          text: action.text,
-          completed: false
+          text: action.text
         }
       ]
     case UPDATE_CARD:

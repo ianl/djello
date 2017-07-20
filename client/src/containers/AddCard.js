@@ -4,7 +4,7 @@ import AddCard from '../components/AddCard';
 
 const mapDispatchToProps = dispatch => ({
   onAddCard: text => {
-    dispatch(addCard(text))
+    dispatch(addCard(text));
   }
 })
 

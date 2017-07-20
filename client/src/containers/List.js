@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { deleteCard } from '../actions';
+import { deleteCard, updateCard } from '../actions';
 import List from '../components/List';
 
 const mapStateToProps = state => ({
@@ -8,7 +8,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onDeleteCard: id => {
-    dispatch(deleteCard(id))
+    dispatch(deleteCard(id));
+  },
+  onUpdateCard: (id, text) => {
+    dispatch(updateCard(id, text));
   }
 })
 
