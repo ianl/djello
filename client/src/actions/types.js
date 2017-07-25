@@ -1,3 +1,6 @@
 export const ADD_CARD = 'ADD_CARD';
 export const UPDATE_CARD = 'UPDATE_CARD';
 export const DELETE_CARD = 'DELETE_CARD';
+
+export const FETCH_CARDS_SUCCESS = 'FETCH_CARDS_SUCCESS';
+export const FETCH_CARDS_FAILURE = 'FETCH_CARDS_FAILURE';
