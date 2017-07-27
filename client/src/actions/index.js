@@ -5,9 +5,10 @@ import {
   DELETE_CARD,
   GET_CARDS,
 
-  GET_CARDS_FAILURE,
   POST_CARD_FAILURE,
-  PUT_CARD_FAILURE
+  PUT_CARD_FAILURE,
+  DELETE_CARD_FAILURE,
+  GET_CARDS_FAILURE
 } from './types';
 axios.defaults.xsrfHeaderName = "HTTP_X_CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -25,6 +26,7 @@ export const addCard = text => {
       }
     })
     .then(response => {
+      console.log("POST Card:");
       console.log(response.data);
       dispatch(postCardSuccess(response.data));
     })
@@ -59,6 +61,7 @@ export const updateCard = card => {
       }
     })
     .then(response => {
+      console.log("PUT Card:");
       console.log(response.data);
       dispatch(putCardSuccess(response.data));
     })
@@ -81,9 +84,31 @@ export const putCardFailure = error => ({
 })
 
 // DELETE
-export const deleteCard = id => ({
+export const deleteCard = id => {
+  return dispatch => {
+    return axios({
+      method: 'DELETE',
+      url: 'http://localhost:8000/api/cards/' + id + '/'
+    })
+    .then(response => {
+      console.log("DELETE Card(id: " + id + ")");
+      dispatch(deleteCardSuccess(id));
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(deleteCardFailure(error));
+    });  
+  }
+}
+
+export const deleteCardSuccess = id => ({
   type: DELETE_CARD,
-  id
+  id: id
+})
+
+export const deleteCardFailure = error => ({
+  type: DELETE_CARD_FAILURE,
+  error: error
 })
 
 // GET
@@ -95,6 +120,7 @@ export const getCards = () => {
       headers: []
     })
     .then(response => {
+      console.log("GET Cards:");
       console.log(response.data);
       dispatch(getCardsSuccess(response.data));
     })
