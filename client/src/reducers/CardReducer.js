@@ -2,13 +2,14 @@ import {
   ADD_CARD,
   UPDATE_CARD,
   DELETE_CARD,
-  FETCH_CARDS_SUCCESS
+  GET_CARDS
 } from '../actions/types';
 
 const initialState = [
   {
     id: -1,
-    text: 'card sample'
+    text: 'card sample',
+    list: 1
   }
 ]
 
@@ -19,7 +20,8 @@ export default (state = initialState, action) => {
         ...state,
         {
           id: action.id,
-          text: action.text
+          text: action.text,
+          list: action.list
         }
       ]
     case UPDATE_CARD:
@@ -28,7 +30,7 @@ export default (state = initialState, action) => {
       )
     case DELETE_CARD:
       return state.filter(card => card.id !== action.id);
-    case FETCH_CARDS_SUCCESS:
+    case GET_CARDS:
       return [
         ...state,
       ].concat(action.cards);

@@ -19,7 +19,12 @@ class Card extends Component {
       this.props.onDeleteCard();
     }
     else {
-      this.props.onUpdateCard(id, text);
+      let card = {
+        "id": id,
+        "text": text,
+        "list": this.props.list
+      };
+      this.props.onUpdateCard(card);
       this.setState({
         isEditing: false
       });  
@@ -49,7 +54,9 @@ class Card extends Component {
 }
 
 Card.propTypes = {
+  id: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
+  list: PropTypes.number.isRequired,
   onDeleteCard: PropTypes.func.isRequired,
   onUpdateCard: PropTypes.func.isRequired
 }

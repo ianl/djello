@@ -10,10 +10,10 @@ import { Provider } from 'react-redux';
 import reducers from './reducers';
 // redux-thunk
 import thunkMiddleware from 'redux-thunk';
-import { fetchCards } from './actions';
+import { getCards } from './actions';
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
-store.dispatch(fetchCards());
+store.dispatch(getCards());
 
 ReactDOM.render(
   <Provider store={store}>

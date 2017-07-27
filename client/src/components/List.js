@@ -9,7 +9,7 @@ const List = ({ cards, onDeleteCard, onUpdateCard }) => (
         key={card.id} 
         {...card} 
         onDeleteCard={() => onDeleteCard(card.id)}
-        onUpdateCard={(id, text) => onUpdateCard(id, text)}
+        onUpdateCard={card => onUpdateCard(card)}
       />
     ))}
   </ul>
@@ -19,7 +19,8 @@ List.propTypes = {
   cards: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      text: PropTypes.string.isRequired
+      text: PropTypes.string.isRequired,
+      list: PropTypes.number.isRequired
     }).isRequired
   ).isRequired,
   onDeleteCard: PropTypes.func.isRequired,

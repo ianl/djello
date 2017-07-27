@@ -10,8 +10,8 @@ const mapDispatchToProps = dispatch => ({
   onDeleteCard: id => {
     dispatch(deleteCard(id));
   },
-  onUpdateCard: (id, text) => {
-    dispatch(updateCard(id, text));
+  onUpdateCard: card => {
+    dispatch(updateCard(card));
   }
 })
 
