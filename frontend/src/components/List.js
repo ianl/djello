@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Card from './Card';
+import Card from '../containers/Card';
 
-const List = ({ cards, onDeleteCard, onUpdateCard }) => (
-  <ul>
-    {cards.map(card => (
-      <Card 
-        key={card.id} 
-        {...card} 
-        onDeleteCard={() => onDeleteCard(card.id)}
-        onUpdateCard={card => onUpdateCard(card)}
-      />
-    ))}
-  </ul>
-)
+class List extends Component {
+  componentWillMount() {
+    this.props.onEnter();
+  }
+
+  render() {
+    return (
+      <ul>
+        {this.props.cards.map(card => (
+          <Card 
+            key={card.id} 
+            {...card} 
+            onDeleteCard={() => this.props.onDeleteCard(card.id)}
+            onUpdateCard={card => this.props.onUpdateCard(card)}
+          />
+        ))}
+      </ul>
+    )
+  }
+}
 
 List.propTypes = {
+  onEnter: PropTypes.func.isRequired,
   cards: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

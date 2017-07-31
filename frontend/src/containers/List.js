@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { deleteCard, updateCard } from '../actions';
+import { getCards, deleteCard, updateCard } from '../actions';
 import List from '../components/List';
 
 const mapStateToProps = state => ({
@@ -7,6 +7,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  onEnter: () => {
+    dispatch(getCards());
+  },
   onDeleteCard: id => {
     dispatch(deleteCard(id));
   },

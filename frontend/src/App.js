@@ -1,13 +1,10 @@
 import React from 'react';
 import './App.css';
-
-import List from './containers/List';
-import AddCard from './containers/AddCard';
+import Main from './components/Main';
 
 const App = () => (
   <div className="App">
-    <List />
-    <AddCard />
+    <Main />
   </div>
 )
 

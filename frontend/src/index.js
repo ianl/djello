@@ -10,16 +10,18 @@ import { Provider } from 'react-redux';
 import reducers from './reducers';
 // redux-thunk
 import thunkMiddleware from 'redux-thunk';
-import { getCards } from './actions';
+// react-router-dom
+import { BrowserRouter } from 'react-router-dom';
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
-store.dispatch(getCards());
 
-ReactDOM.render(
+ReactDOM.render((
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>
-  , document.getElementById('root')
+  ), document.getElementById('root')
 );
 
 registerServiceWorker();
