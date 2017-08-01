@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const AddCard = ({ onAddCard }) => {
+const AddCard = ({ onAddCard, list }) => {
   let input;
 
   return (
@@ -12,7 +12,7 @@ const AddCard = ({ onAddCard }) => {
           if (!input.value.trim()) {
             return;
           }
-          onAddCard(input.value);
+          onAddCard(list, input.value);
           input.value = '';
         }}
       >

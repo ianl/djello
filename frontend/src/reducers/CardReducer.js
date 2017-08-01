@@ -6,11 +6,6 @@ import {
 } from '../actions/types';
 
 const initialState = [
-  {
-    id: -1,
-    text: 'card sample',
-    list: 1
-  }
 ]
 
 export default (state = initialState, action) => {

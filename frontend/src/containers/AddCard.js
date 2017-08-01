@@ -3,8 +3,8 @@ import { addCard } from '../actions';
 import AddCard from '../components/AddCard';
 
 const mapDispatchToProps = dispatch => ({
-  onAddCard: text => {
-    dispatch(addCard(text));
+  onAddCard: (list, text) => {
+    dispatch(addCard(list, text));
   }
 })
 

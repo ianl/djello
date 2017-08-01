@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import Card from '../containers/Card';
 
 class List extends Component {
-  componentWillMount() {
-    this.props.onEnter();
-  }
-
   render() {
     return (
       <ul>
@@ -24,7 +20,6 @@ class List extends Component {
 }
 
 List.propTypes = {
-  onEnter: PropTypes.func.isRequired,
   cards: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

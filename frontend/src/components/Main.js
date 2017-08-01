@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 // Containers
 import Home from '../containers/Home';
-import Board from './Board';
+import Board from '../containers/Board';
 
 const Main = () => (
   <div className="Main">

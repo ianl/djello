@@ -20,13 +20,13 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+  onEnter: PropTypes.func.isRequired,
   boards: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired
     }).isRequired
-  ).isRequired,
-  onEnter: PropTypes.func.isRequired
+  ).isRequired
 }
 
 export default Home;

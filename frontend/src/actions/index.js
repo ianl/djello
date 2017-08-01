@@ -1,30 +1,36 @@
 import axios from 'axios';
 import {
+// Cards
   ADD_CARD,
   UPDATE_CARD,
   DELETE_CARD,
   GET_CARDS,
-  GET_BOARDS,
 
   POST_CARD_FAILURE,
   PUT_CARD_FAILURE,
   DELETE_CARD_FAILURE,
   GET_CARDS_FAILURE,
-  GET_BOARDS_FAILURE
+
+// Boards
+  GET_BOARDS,
+  GET_BOARD,
+
+  GET_BOARDS_FAILURE,
+  GET_BOARD_FAILURE
 } from './types';
 axios.defaults.xsrfHeaderName = "HTTP_X_CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
 /* Card */
 // POST
-export const addCard = text => {
+export const addCard = (list, text) => {
   return dispatch => {
     return axios({
       method: 'POST',
       url: 'http://localhost:8000/api/cards/',
       data: {
         "text": text,
-        "list": 1
+        "list": list
       }
     })
     .then(response => {
@@ -171,5 +177,34 @@ export const getBoardsSuccess = boards => ({
 
 export const getBoardsFailure = error => ({
   type: GET_BOARDS_FAILURE,
+  error: error
+})
+
+export const getBoard = id => {
+  return dispatch => {
+    return axios({
+      method: 'GET',
+      url: 'http://localhost:8000/api/boards/' + id + '/',
+      headers: []
+    })
+    .then(response => {
+      console.log("GET Board:");
+      console.log(response.data);
+      dispatch(getBoardSuccess(response.data));
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(getBoardFailure(error));
+    });
+  }
+}
+
+export const getBoardSuccess = board => ({
+  type: GET_BOARD,
+  board: board
+})
+
+export const getBoardFailure = error => ({
+  type: GET_BOARD_FAILURE,
   error: error
 })
