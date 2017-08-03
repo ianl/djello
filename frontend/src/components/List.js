@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import Card from '../containers/Card';
+import AddCard from '../containers/AddCard';
 
 class List extends Component {
   render() {
     return (
-      <ul>
-        {this.props.cards.map(card => (
-          <Card 
-            key={card.id} 
-            {...card} 
-            onDeleteCard={() => this.props.onDeleteCard(card.id)}
-            onUpdateCard={card => this.props.onUpdateCard(card)}
-          />
-        ))}
-      </ul>
-    )
+      <div>
+        <h2>{this.props.name}(id: {this.props.id})</h2>
+        <ul>
+          {this.props.cards.map(card => (
+            <Card 
+              key={card.id} 
+              {...card} 
+              onDeleteCard={() => this.props.onDeleteCard(card)}
+              onUpdateCard={card => this.props.onUpdateCard(card)}
+            />
+          ))}
+        </ul>
+        <AddCard list={this.props.id} />
+      </div>
+    )  
   }
 }
 

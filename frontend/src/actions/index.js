@@ -4,12 +4,10 @@ import {
   ADD_CARD,
   UPDATE_CARD,
   DELETE_CARD,
-  GET_CARDS,
 
   POST_CARD_FAILURE,
   PUT_CARD_FAILURE,
   DELETE_CARD_FAILURE,
-  GET_CARDS_FAILURE,
 
 // Boards
   GET_BOARDS,
@@ -47,9 +45,7 @@ export const addCard = (list, text) => {
 
 export const postCardSuccess = card => ({
   type: ADD_CARD,
-  id: card.id,
-  text: card.text,
-  list: 1
+  card: card
 })
 
 export const postCardFailure = error => ({
@@ -82,8 +78,7 @@ export const updateCard = card => {
 
 export const putCardSuccess = card => ({
   type: UPDATE_CARD,
-  id: card.id,
-  text: card.text
+  card: card
 })
 
 export const putCardFailure = error => ({
@@ -92,15 +87,15 @@ export const putCardFailure = error => ({
 })
 
 // DELETE
-export const deleteCard = id => {
+export const deleteCard = card => {
   return dispatch => {
     return axios({
       method: 'DELETE',
-      url: 'http://localhost:8000/api/cards/' + id + '/'
+      url: 'http://localhost:8000/api/cards/' + card.id + '/'
     })
     .then(response => {
-      console.log("DELETE Card(id: " + id + ")");
-      dispatch(deleteCardSuccess(id));
+      console.log("DELETE Card(id: " + card.id + ")");
+      dispatch(deleteCardSuccess(card));
     })
     .catch(error => {
       console.log(error);
@@ -109,43 +104,13 @@ export const deleteCard = id => {
   }
 }
 
-export const deleteCardSuccess = id => ({
+export const deleteCardSuccess = card => ({
   type: DELETE_CARD,
-  id: id
+  card: card
 })
 
 export const deleteCardFailure = error => ({
   type: DELETE_CARD_FAILURE,
-  error: error
-})
-
-// GET
-export const getCards = () => {
-  return dispatch => {
-    return axios({
-      method: 'GET',
-      url: 'http://localhost:8000/api/cards/',
-      headers: []
-    })
-    .then(response => {
-      console.log("GET Cards:");
-      console.log(response.data);
-      dispatch(getCardsSuccess(response.data));
-    })
-    .catch(error => {
-      console.log(error);
-      dispatch(getCardsFailure(error));
-    });
-  }
-}
-
-export const getCardsSuccess = cards => ({
-  type: GET_CARDS,
-  cards: cards
-})
-
-export const getCardsFailure = error => ({
-  type: GET_CARDS_FAILURE,
   error: error
 })
 

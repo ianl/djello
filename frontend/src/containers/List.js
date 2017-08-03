@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
-import { getCards, deleteCard, updateCard } from '../actions';
+import { deleteCard, updateCard } from '../actions';
 import List from '../components/List';
 
 const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onDeleteCard: id => {
-    dispatch(deleteCard(id));
+  onDeleteCard: card => {
+    dispatch(deleteCard(card));
   },
   onUpdateCard: card => {
     dispatch(updateCard(card));

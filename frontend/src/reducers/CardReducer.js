@@ -1,34 +1,34 @@
 import {
   ADD_CARD,
   UPDATE_CARD,
-  DELETE_CARD,
-  GET_CARDS
+  DELETE_CARD
 } from '../actions/types';
 
-const initialState = [
-]
-
-export default (state = initialState, action) => {
+export default (state, action) => {
+  let cards;
   switch (action.type) {
     case ADD_CARD:
-      return [
+      return {
         ...state,
-        {
-          id: action.id,
-          text: action.text,
-          list: action.list
-        }
-      ]
+        cards: [
+          ...state.cards,
+          action.card
+        ]
+      }
     case UPDATE_CARD:
-      return state.map(card =>
-        (card.id === action.id) ? {...card, text: action.text} : card
-      )
-    case DELETE_CARD:
-      return state.filter(card => card.id !== action.id);
-    case GET_CARDS:
-      return [
+      cards = state.cards.map(card =>
+        (card.id === action.card.id) ? action.card : card
+      );
+      return {
         ...state,
-      ].concat(action.cards);
+        cards: cards
+      }
+    case DELETE_CARD:
+      cards = state.cards.filter(card => card.id !== action.card.id);
+      return {
+        ...state,
+        cards: cards
+      }
     default:
       return state;
   }

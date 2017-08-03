@@ -3,7 +3,7 @@ import { getBoard } from '../actions';
 import Board from '../components/Board';
 
 const mapStateToProps = state => ({
-  boards: state.boards
+  board: state.BoardReducer.board
 })
 
 const mapDispatchToProps = dispatch => ({

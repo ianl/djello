@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import CardTextInput from './CardTextInput';
 
 class Card extends Component {
