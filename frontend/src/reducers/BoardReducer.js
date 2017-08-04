@@ -25,7 +25,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  let board, boards;
+  let boards;
   switch (action.type) {
     // BOARD
     case GET_BOARDS:

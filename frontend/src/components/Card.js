@@ -32,8 +32,8 @@ class Card extends Component {
     }
   }
 
-  handleDelete = () => {
-    this.props.onDeleteCard();
+  handleDelete = card => {
+    this.props.onDeleteCard(card);
   }
 
   render() {
@@ -46,9 +46,9 @@ class Card extends Component {
     }
 
     return (
-      <li onDoubleClick={this.handleDoubleClick}>
+      <li onDoubleClick={() => this.handleDoubleClick()}>
         {this.props.text}
-        <button onClick={this.handleDelete}>X</button>
+        <button onClick={() => this.handleDelete(this.props)}>X</button>
       </li>
     )
   }

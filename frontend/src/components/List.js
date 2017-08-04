@@ -18,15 +18,10 @@ class List extends Component {
         </h2>
         <ul>
           {this.props.cards.map(card => (
-            <Card 
-              key={card.id} 
-              {...card} 
-              onDeleteCard={() => this.props.onDeleteCard(card)}
-              onUpdateCard={card => this.props.onUpdateCard(card)}
-            />
+            <Card key={card.id} {...card} />
           ))}
         </ul>
-        <AddCard list={this.props.id} />
+        <AddCard list={this.props} />
       </div>
     )  
   }
@@ -40,9 +35,7 @@ List.propTypes = {
       text: PropTypes.string.isRequired,
       list: PropTypes.number.isRequired
     }).isRequired
-  ).isRequired,
-  onDeleteCard: PropTypes.func.isRequired,
-  onUpdateCard: PropTypes.func.isRequired
+  ).isRequired
 }
 
 export default List;

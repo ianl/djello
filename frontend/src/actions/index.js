@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-// Cards
+// CARD
   ADD_CARD,
   UPDATE_CARD,
   DELETE_CARD,
@@ -9,14 +9,14 @@ import {
   PUT_CARD_FAILURE,
   DELETE_CARD_FAILURE,
 
-// Lists
+// LIST
   ADD_LIST,
   DELETE_LIST,
 
   POST_LIST_FAILURE,
   DELETE_LIST_FAILURE,
 
-// Boards
+// BOARD
   GET_BOARDS,
   GET_BOARD,
   ADD_BOARD,
@@ -30,7 +30,7 @@ import {
 axios.defaults.xsrfHeaderName = "HTTP_X_CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
-/* Card */
+/* CARD */
 // POST
 export const addCard = (list, text) => {
   return dispatch => {
@@ -38,8 +38,8 @@ export const addCard = (list, text) => {
       method: 'POST',
       url: 'http://localhost:8000/api/cards/',
       data: {
-        "text": text,
-        "list": list
+        text,
+        "list": list.id
       }
     })
     .then(response => {
@@ -56,12 +56,12 @@ export const addCard = (list, text) => {
 
 export const postCardSuccess = card => ({
   type: ADD_CARD,
-  card: card
+  card
 })
 
 export const postCardFailure = error => ({
   type: POST_CARD_FAILURE,
-  error: error
+  error
 })
 
 // PUT
@@ -89,12 +89,12 @@ export const updateCard = card => {
 
 export const putCardSuccess = card => ({
   type: UPDATE_CARD,
-  card: card
+  card
 })
 
 export const putCardFailure = error => ({
   type: PUT_CARD_FAILURE,
-  error: error
+  error
 })
 
 // DELETE
@@ -117,15 +117,15 @@ export const deleteCard = card => {
 
 export const deleteCardSuccess = card => ({
   type: DELETE_CARD,
-  card: card
+  card
 })
 
 export const deleteCardFailure = error => ({
   type: DELETE_CARD_FAILURE,
-  error: error
+  error
 })
 
-/* Lists */
+/* LIST */
 // POST
 export const addList = (board, name) => {
   return dispatch => {
@@ -133,7 +133,7 @@ export const addList = (board, name) => {
       method: 'POST',
       url: 'http://localhost:8000/api/lists/',
       data: {
-        "name": name,
+        name,
         "board": board.id
       }
     })
@@ -151,12 +151,12 @@ export const addList = (board, name) => {
 
 export const postListSuccess = list => ({
   type: ADD_LIST,
-  list: list
+  list
 })
 
 export const postListFailure = error => ({
   type: POST_LIST_FAILURE,
-  error: error
+  error
 })
 
 // DELETE
@@ -179,15 +179,15 @@ export const deleteList = list => {
 
 export const deleteListSuccess = list => ({
   type: DELETE_LIST,
-  list: list
+  list
 })
 
 export const deleteListFailure = error => ({
   type: DELETE_LIST_FAILURE,
-  error: error
+  error
 })
 
-/* Boards */
+/* BOARD */
 // GET
 export const getBoards = () => {
   return dispatch => {
@@ -210,12 +210,12 @@ export const getBoards = () => {
 
 export const getBoardsSuccess = boards => ({
   type: GET_BOARDS,
-  boards: boards
+  boards
 })
 
 export const getBoardsFailure = error => ({
   type: GET_BOARDS_FAILURE,
-  error: error
+  error
 })
 
 export const getBoard = id => {
@@ -239,12 +239,12 @@ export const getBoard = id => {
 
 export const getBoardSuccess = board => ({
   type: GET_BOARD,
-  board: board
+  board
 })
 
 export const getBoardFailure = error => ({
   type: GET_BOARD_FAILURE,
-  error: error
+  error
 })
 
 // POST
@@ -254,7 +254,7 @@ export const addBoard = name => {
       method: 'POST',
       url: 'http://localhost:8000/api/boards/',
       data: {
-        "name": name
+        name
       }
     })
     .then(response => {
@@ -271,12 +271,12 @@ export const addBoard = name => {
 
 export const postBoardSuccess = board => ({
   type: ADD_BOARD,
-  board: board
+  board
 })
 
 export const postBoardFailure = error => ({
   type: POST_BOARD_FAILURE,
-  error: error
+  error
 })
 
 // DELETE
@@ -299,10 +299,10 @@ export const deleteBoard = board => {
 
 export const deleteBoardSuccess = board => ({
   type: DELETE_BOARD,
-  board: board
+  board
 })
 
 export const deleteBoardFailure = error => ({
   type: DELETE_BOARD_FAILURE,
-  error: error
+  error
 })

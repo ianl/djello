@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const AddCard = ({ onAddCard, list }) => {
   let input;
-
   return (
     <div>
       <form
@@ -22,7 +21,7 @@ const AddCard = ({ onAddCard, list }) => {
           }}
         />
         <button type="submit">
-          Add Card
+          Add New Card
         </button>
       </form>
     </div>

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const AddBoard = ({ onAddBoard }) => {
   let input;
-
   return (
     <div>
       <form

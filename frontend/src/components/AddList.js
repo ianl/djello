@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const AddList = ({ onAddList, board }) => {
   let input;
-
   return (
     <div>
       <form

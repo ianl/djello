@@ -33,6 +33,7 @@ Board.propTypes = {
 
           id: PropTypes.number,
           name: PropTypes.string,
+          board: PropTypes.number,
           cards: PropTypes.arrayOf(
             PropTypes.shape({
 
