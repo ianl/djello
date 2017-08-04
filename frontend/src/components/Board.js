@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import List from '../containers/List';
+import AddList from '../containers/AddList';
 
 class Board extends Component {
   componentWillMount() {
@@ -15,6 +16,7 @@ class Board extends Component {
         {this.props.board.lists.map(list => (
           <List key={list.id} {...list} />
         ))}
+        <AddList board={this.props.board} />
       </div>
     )
   }

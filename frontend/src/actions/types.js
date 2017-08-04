@@ -7,6 +7,13 @@ export const POST_CARD_FAILURE = 'POST_CARD_FAILURE';
 export const PUT_CARD_FAILURE = 'PUT_CARD_FAILURE';
 export const DELETE_CARD_FAILURE = 'DELETE_CARD_FAILURE';
 
+// Lists
+export const ADD_LIST = 'ADD_LIST';
+export const DELETE_LIST = 'DELETE_LIST';
+
+export const POST_LIST_FAILURE = 'POST_LIST_FAILURE';
+export const DELETE_LIST_FAILURE = 'DELETE_LIST_FAILURE';
+
 // Boards
 export const GET_BOARDS = 'GET_BOARDS';
 export const GET_BOARD = 'GET_BOARD';

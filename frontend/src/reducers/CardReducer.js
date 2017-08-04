@@ -7,6 +7,7 @@ import {
 export default (state, action) => {
   let cards;
   switch (action.type) {
+    // CARD
     case ADD_CARD:
       return {
         ...state,

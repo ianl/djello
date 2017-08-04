@@ -5,10 +5,17 @@ import Card from '../containers/Card';
 import AddCard from '../containers/AddCard';
 
 class List extends Component {
+  handleDelete = list => {
+    this.props.onDeleteList(list);
+  }
+
   render() {
     return (
       <div>
-        <h2>{this.props.name}(id: {this.props.id})</h2>
+        <h2>
+          {this.props.name}(id: {this.props.id})
+          <button onClick={() => this.handleDelete(this.props)}>X</button>
+        </h2>
         <ul>
           {this.props.cards.map(card => (
             <Card 
@@ -26,6 +33,7 @@ class List extends Component {
 }
 
 List.propTypes = {
+  onDeleteList: PropTypes.func.isRequired,
   cards: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

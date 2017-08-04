@@ -4,6 +4,9 @@ import {
   ADD_BOARD,
   DELETE_BOARD,
 
+  ADD_LIST,
+  DELETE_LIST,
+
   ADD_CARD,
   UPDATE_CARD,
   DELETE_CARD
@@ -22,7 +25,9 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
+  let board, boards;
   switch (action.type) {
+    // BOARD
     case GET_BOARDS:
       return {
         ...state,
@@ -42,11 +47,29 @@ export default (state = initialState, action) => {
         ]
       }
     case DELETE_BOARD:
-      let boards = state.boards.filter(board => board.id !== action.board.id);
+      boards = state.boards.filter(board => board.id !== action.board.id);
       return {
         ...state,
         boards: boards
       }
+    // LIST
+    case ADD_LIST:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          lists: ListReducer(state.board.lists, action)
+        }
+      }
+    case DELETE_LIST:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          lists: ListReducer(state.board.lists, action)
+        }
+      }
+    // CARD
     case ADD_CARD:
       return {
         ...state,

@@ -9,6 +9,13 @@ import {
   PUT_CARD_FAILURE,
   DELETE_CARD_FAILURE,
 
+// Lists
+  ADD_LIST,
+  DELETE_LIST,
+
+  POST_LIST_FAILURE,
+  DELETE_LIST_FAILURE,
+
 // Boards
   GET_BOARDS,
   GET_BOARD,
@@ -115,6 +122,68 @@ export const deleteCardSuccess = card => ({
 
 export const deleteCardFailure = error => ({
   type: DELETE_CARD_FAILURE,
+  error: error
+})
+
+/* Lists */
+// POST
+export const addList = (board, name) => {
+  return dispatch => {
+    return axios({
+      method: 'POST',
+      url: 'http://localhost:8000/api/lists/',
+      data: {
+        "name": name,
+        "board": board.id
+      }
+    })
+    .then(response => {
+      console.log("POST List:");
+      console.log(response.data);
+      dispatch(postListSuccess(response.data));
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(postListFailure(error));
+    });  
+  }
+}
+
+export const postListSuccess = list => ({
+  type: ADD_LIST,
+  list: list
+})
+
+export const postListFailure = error => ({
+  type: POST_LIST_FAILURE,
+  error: error
+})
+
+// DELETE
+export const deleteList = list => {
+  return dispatch => {
+    return axios({
+      method: 'DELETE',
+      url: 'http://localhost:8000/api/lists/' + list.id + '/'
+    })
+    .then(response => {
+      console.log("DELETE List(id: " + list.id + ")");
+      dispatch(deleteListSuccess(list));
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(deleteListFailure(error));
+    });  
+  }
+}
+
+export const deleteListSuccess = list => ({
+  type: DELETE_LIST,
+  list: list
+})
+
+export const deleteListFailure = error => ({
+  type: DELETE_LIST_FAILURE,
   error: error
 })
 
@@ -234,6 +303,6 @@ export const deleteBoardSuccess = board => ({
 })
 
 export const deleteBoardFailure = error => ({
-  type: DELETE_CARD_FAILURE,
+  type: DELETE_BOARD_FAILURE,
   error: error
 })

@@ -1,4 +1,7 @@
 import {
+  ADD_LIST,
+  DELETE_LIST,
+
   ADD_CARD,
   UPDATE_CARD,
   DELETE_CARD
@@ -7,6 +10,15 @@ import CardReducer from './CardReducer';
 
 export default (state, action) => {
   switch (action.type) {
+    // LIST
+    case ADD_LIST:
+      return [
+        ...state,
+        action.list
+      ]
+    case DELETE_LIST:
+      return state.filter(list => list.id !== action.list.id);
+    // CARD
     case ADD_CARD:
       return state.map(list =>
         (list.id === action.card.list) ? CardReducer(list, action) : list
