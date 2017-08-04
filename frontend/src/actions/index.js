@@ -12,9 +12,13 @@ import {
 // Boards
   GET_BOARDS,
   GET_BOARD,
+  ADD_BOARD,
+  DELETE_BOARD,
 
   GET_BOARDS_FAILURE,
-  GET_BOARD_FAILURE
+  GET_BOARD_FAILURE,
+  POST_BOARD_FAILURE,
+  DELETE_BOARD_FAILURE
 } from './types';
 axios.defaults.xsrfHeaderName = "HTTP_X_CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -171,5 +175,65 @@ export const getBoardSuccess = board => ({
 
 export const getBoardFailure = error => ({
   type: GET_BOARD_FAILURE,
+  error: error
+})
+
+// POST
+export const addBoard = name => {
+  return dispatch => {
+    return axios({
+      method: 'POST',
+      url: 'http://localhost:8000/api/boards/',
+      data: {
+        "name": name
+      }
+    })
+    .then(response => {
+      console.log("POST Board:");
+      console.log(response.data);
+      dispatch(postBoardSuccess(response.data));
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(postBoardFailure(error));
+    });  
+  }
+}
+
+export const postBoardSuccess = board => ({
+  type: ADD_BOARD,
+  board: board
+})
+
+export const postBoardFailure = error => ({
+  type: POST_BOARD_FAILURE,
+  error: error
+})
+
+// DELETE
+export const deleteBoard = board => {
+  return dispatch => {
+    return axios({
+      method: 'DELETE',
+      url: 'http://localhost:8000/api/boards/' + board.id + '/'
+    })
+    .then(response => {
+      console.log("DELETE Board(id: " + board.id + ")");
+      dispatch(deleteBoardSuccess(board));
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(deleteBoardFailure(error));
+    });  
+  }
+}
+
+export const deleteBoardSuccess = board => ({
+  type: DELETE_BOARD,
+  board: board
+})
+
+export const deleteBoardFailure = error => ({
+  type: DELETE_CARD_FAILURE,
   error: error
 })

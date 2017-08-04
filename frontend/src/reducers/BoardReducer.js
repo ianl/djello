@@ -1,6 +1,8 @@
 import {
   GET_BOARDS,
   GET_BOARD,
+  ADD_BOARD,
+  DELETE_BOARD,
 
   ADD_CARD,
   UPDATE_CARD,
@@ -30,6 +32,20 @@ export default (state = initialState, action) => {
       return {
         ...state,
         board: action.board
+      }
+    case ADD_BOARD:
+      return {
+        ...state,
+        boards: [
+          ...state.boards,
+          action.board
+        ]
+      }
+    case DELETE_BOARD:
+      let boards = state.boards.filter(board => board.id !== action.board.id);
+      return {
+        ...state,
+        boards: boards
       }
     case ADD_CARD:
       return {
