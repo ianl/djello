@@ -2,9 +2,6 @@ import { connect } from 'react-redux';
 import { deleteCard, updateCard } from '../actions';
 import Card from '../components/Card';
 
-const mapStateToProps = state => ({
-})
-
 const mapDispatchToProps = dispatch => ({
   onDeleteCard: card => {
     dispatch(deleteCard(card));
@@ -14,4 +11,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default connect(null, mapDispatchToProps)(Card);

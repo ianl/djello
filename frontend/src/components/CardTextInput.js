@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Form, FormControl } from 'react-bootstrap';
+
 class CardTextInput extends Component {
   state = {
     text: this.props.text
@@ -18,12 +20,14 @@ class CardTextInput extends Component {
 
   render() {
     return (
-      <input 
-        type="text" 
-        defaultValue={this.state.text} 
-        onChange={ev => this.handleChange(ev)}
-        onBlur={this.handleBlur} 
-      />
+      <Form inline>
+        <FormControl 
+          type="text" 
+          defaultValue={this.state.text} 
+          onChange={ev => this.handleChange(ev)}
+          onBlur={this.handleBlur} 
+        />
+      </Form>
     )
   }
 }

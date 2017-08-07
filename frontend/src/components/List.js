@@ -4,25 +4,68 @@ import PropTypes from 'prop-types';
 import Card from '../containers/Card';
 import AddCard from '../containers/AddCard';
 
+import { Button, Glyphicon, Panel, ListGroup } from 'react-bootstrap';
+
 class List extends Component {
+  state = {
+    isMouseEnter: false
+  }
+
   handleDelete = list => {
     this.props.onDeleteList(list);
   }
 
+  handleMouseEnter = () => {
+    this.setState({
+      isMouseEnter: true
+    });
+  }
+
+  handleMouseLeave = () => {
+    this.setState({
+      isMouseEnter: false
+    });
+  }
+
+  deleteButtonStyle = {
+    marginTop: "-5px"
+  } 
+
+  panelHeader = () => {
+    if (this.state.isMouseEnter) {
+      return (
+        <div onMouseLeave={() => this.handleMouseLeave()}>
+          {this.props.name}<small>(id: {this.props.id})</small>
+          <Button 
+            className="pull-right" 
+            bsSize="small"
+            onClick={() => this.handleDelete(this.props)}
+            style={this.deleteButtonStyle}
+          >
+            <Glyphicon glyph="glyphicon glyphicon-remove" />
+          </Button>
+        </div>
+      )      
+    }
+    else {
+      return (
+        <div onMouseEnter={() => this.handleMouseEnter()}>
+          {this.props.name}<small>(id: {this.props.id})</small>
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
-      <div>
-        <h2>
-          {this.props.name}(id: {this.props.id})
-          <button onClick={() => this.handleDelete(this.props)}>X</button>
-        </h2>
-        <ul>
+      <Panel header={this.panelHeader()} bsStyle="info">
+        <ListGroup>
           {this.props.cards.map(card => (
             <Card key={card.id} {...card} />
           ))}
-        </ul>
+        </ListGroup>
         <AddCard list={this.props} />
-      </div>
+      </Panel>
     )  
   }
 }

@@ -1,31 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 
-const AddCard = ({ onAddCard, list }) => {
-  let input;
-  return (
-    <div>
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          if (!input.value.trim()) {
-            return;
-          }
-          onAddCard(list, input.value);
-          input.value = '';
-        }}
-      >
-        <input
-          ref={node => {
-            input = node
+import { Button, Form, FormControl, Glyphicon } from 'react-bootstrap';
+
+class AddCard extends Component {
+  render() {
+    return (
+      <div>
+        <Form inline
+          onSubmit={e => {
+            e.preventDefault();
+            let input = ReactDOM.findDOMNode(this.refs.myInput);
+            if (!input.value.trim()) {
+              return;
+            }
+            this.props.onAddCard(this.props.list, input.value);
+            input.value = '';
           }}
-        />
-        <button type="submit">
-          Add New Card
-        </button>
-      </form>
-    </div>
-  )
+        >
+          <FormControl
+            placeholder="Add New Card"
+            ref="myInput"
+          />
+          <Button type="submit">
+            <Glyphicon glyph="glyphicon glyphicon-plus" />
+          </Button>
+        </Form>
+      </div>
+    )    
+  }
 }
 
 AddCard.propTypes = {

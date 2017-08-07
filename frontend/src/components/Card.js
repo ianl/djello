@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 
 import CardTextInput from './CardTextInput';
 
+import { Button, Glyphicon, ListGroupItem } from 'react-bootstrap';
+
 class Card extends Component {
   state = {
-    isEditing: false
+    isEditing: false,
+    isMouseEnter: false
   }
 
   handleDoubleClick = () => {
@@ -36,21 +39,59 @@ class Card extends Component {
     this.props.onDeleteCard(card);
   }
 
+  handleMouseEnter = () => {
+    this.setState({
+      isMouseEnter: true
+    });
+  }
+
+  handleMouseLeave = () => {
+    this.setState({
+      isMouseEnter: false
+    });
+  }
+
+  deleteButtonStyle = {
+    marginTop: "-5px"
+  }  
+
   render() {
     if (this.state.isEditing) {
       return (
-        <li>
+        <ListGroupItem>
           <CardTextInput text={this.props.text} onSave={(text) => this.handleSave(this.props.id, text)} />
-        </li>
+        </ListGroupItem>
       )
     }
 
-    return (
-      <li onDoubleClick={() => this.handleDoubleClick()}>
-        {this.props.text}
-        <button onClick={() => this.handleDelete(this.props)}>X</button>
-      </li>
-    )
+    if (this.state.isMouseEnter) {
+      return (
+        <ListGroupItem 
+          onDoubleClick={() => this.handleDoubleClick()} 
+          onMouseLeave={() => this.handleMouseLeave()}
+        >
+          {this.props.text}
+          <Button 
+            className="pull-right" 
+            bsSize="small" 
+            onClick={() => this.handleDelete(this.props)}
+            style={this.deleteButtonStyle}
+          >
+            <Glyphicon glyph="glyphicon glyphicon-remove" />
+          </Button>
+        </ListGroupItem>
+      )      
+    }
+    else {
+      return (
+        <ListGroupItem 
+          onDoubleClick={() => this.handleDoubleClick()} 
+          onMouseEnter={() => this.handleMouseEnter()}
+        >
+          {this.props.text}
+        </ListGroupItem>
+      ) 
+    }
   }
 }
 

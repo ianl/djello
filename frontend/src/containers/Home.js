@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getBoards, deleteBoard } from '../actions';
+import { getBoards } from '../actions';
 import Home from '../components/Home';
 
 const mapStateToProps = state => ({
@@ -9,9 +9,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onEnter: () => {
     dispatch(getBoards());
-  },
-  onDeleteBoard: board => {
-    dispatch(deleteBoard(board));
   }
 })
 

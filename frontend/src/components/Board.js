@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import List from '../containers/List';
 import AddList from '../containers/AddList';
 
+import { PageHeader, Col } from 'react-bootstrap';
+
 class Board extends Component {
   componentWillMount() {
     this.props.onEnter(this.props.match.params.id);
@@ -12,9 +14,14 @@ class Board extends Component {
   render() {
     return (
       <div>
-        <h1>{this.props.board.name}(id: {this.props.board.id})</h1>
+        <PageHeader>
+          {this.props.board.name}
+          <small>(id: {this.props.board.id})</small>
+        </PageHeader>
         {this.props.board.lists.map(list => (
-          <List key={list.id} {...list} />
+          <Col sm={6} md={3} key={list.id}>
+            <List {...list} />
+          </Col>
         ))}
         <AddList board={this.props.board} />
       </div>

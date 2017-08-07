@@ -1,31 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
 
-const AddBoard = ({ onAddBoard }) => {
-  let input;
-  return (
-    <div>
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          if (!input.value.trim()) {
-            return;
-          }
-          onAddBoard(input.value);
-          input.value = '';
-        }}
-      >
-        <input
-          ref={node => {
-            input = node
+import { Button, Form, FormControl, Glyphicon } from 'react-bootstrap';
+
+class AddBoard extends Component {
+  render() {
+    return (
+      <div>
+        <Form inline
+          onSubmit={e => {
+            e.preventDefault();
+            let input = ReactDOM.findDOMNode(this.refs.myInput);
+            if (!input.value.trim()) {
+              return;
+            }
+            this.props.onAddBoard(input.value);
+            input.value = '';
           }}
-        />
-        <button type="submit">
-          Add New Board
-        </button>
-      </form>
-    </div>
-  )
+        >
+          <FormControl
+            placeholder="Add New Board"
+            ref="myInput"
+          />
+          <Button type="submit">
+            <Glyphicon glyph="glyphicon glyphicon-plus" />
+          </Button>
+        </Form>
+      </div>
+    )
+  }
 }
 
 AddBoard.propTypes = {
