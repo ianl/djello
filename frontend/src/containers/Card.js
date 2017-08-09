@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { deleteCard, updateCard } from '../actions';
+import { deleteCard, updateCard, moveCard } from '../actions';
 import Card from '../components/Card';
 
 const mapDispatchToProps = dispatch => ({
@@ -8,6 +8,10 @@ const mapDispatchToProps = dispatch => ({
   },
   onUpdateCard: card => {
     dispatch(updateCard(card));
+  },
+  moveCard: (dragList, dragIndex, hoverList, hoverIndex) => {
+    console.log(dragList + ":" + dragIndex + " to " + hoverList + ":" + hoverIndex);
+    dispatch(moveCard(dragList, dragIndex, hoverList, hoverIndex));
   }
 })
 

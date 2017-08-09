@@ -9,6 +9,8 @@ import {
   PUT_CARD_FAILURE,
   DELETE_CARD_FAILURE,
 
+  MOVE_CARD,
+
 // LIST
   ADD_LIST,
   DELETE_LIST,
@@ -123,6 +125,15 @@ export const deleteCardSuccess = card => ({
 export const deleteCardFailure = error => ({
   type: DELETE_CARD_FAILURE,
   error
+})
+
+// Others
+export const moveCard = (dragList, dragIndex, hoverList, hoverIndex) => ({
+  type: MOVE_CARD,
+  dragList,
+  dragIndex,
+  hoverList,
+  hoverIndex
 })
 
 /* LIST */

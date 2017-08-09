@@ -4,7 +4,8 @@ import {
 
   ADD_CARD,
   UPDATE_CARD,
-  DELETE_CARD
+  DELETE_CARD,
+  MOVE_CARD
 } from '../actions/types';
 import CardReducer from './CardReducer';
 
@@ -30,6 +31,10 @@ export default (state, action) => {
     case DELETE_CARD:
       return state.map(list =>
         (list.id === action.card.list) ? CardReducer(list, action) : list
+      )
+    case MOVE_CARD:
+      return state.map(list =>
+        (list.id === action.dragList) ? CardReducer(list, action) : list
       )
     default:
       return state;

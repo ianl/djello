@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import Card from '../containers/Card';
 import AddCard from '../containers/AddCard';
@@ -60,8 +62,8 @@ class List extends Component {
     return (
       <Panel header={this.panelHeader()} bsStyle="info">
         <ListGroup>
-          {this.props.cards.map(card => (
-            <Card key={card.id} {...card} />
+          {this.props.cards.map((card, i) => (
+            <Card key={card.id} index={i} {...card} />
           ))}
         </ListGroup>
         <AddCard list={this.props} />
@@ -81,4 +83,4 @@ List.propTypes = {
   ).isRequired
 }
 
-export default List;
+export default DragDropContext(HTML5Backend)(List);

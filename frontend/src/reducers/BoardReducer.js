@@ -9,7 +9,8 @@ import {
 
   ADD_CARD,
   UPDATE_CARD,
-  DELETE_CARD
+  DELETE_CARD,
+  MOVE_CARD
 } from '../actions/types';
 import ListReducer from './ListReducer';
 
@@ -87,6 +88,14 @@ export default (state = initialState, action) => {
         }
       }
     case DELETE_CARD:
+      return {
+        ...state,
+        board: {
+          ...state.board,
+          lists: ListReducer(state.board.lists, action)
+        }
+      }
+    case MOVE_CARD:
       return {
         ...state,
         board: {
