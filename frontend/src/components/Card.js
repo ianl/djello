@@ -63,15 +63,17 @@ class Card extends Component {
 
     if (this.state.isEditing) {
       return (
-        <ListGroupItem>
-          <CardTextInput text={this.props.text} onSave={(text) => this.handleSave(this.props.id, text)} />
-        </ListGroupItem>
+        <div className="Card">
+          <ListGroupItem>
+            <CardTextInput text={this.props.text} onSave={(text) => this.handleSave(this.props.id, text)} />
+          </ListGroupItem>
+        </div>
       )
     }
 
     if (this.state.isMouseEnter) {
       return this.props.connectDragSource(this.props.connectDropTarget(
-        <div style={{ opacity }}>
+        <div className="Card" style={{ opacity }}>
           <ListGroupItem 
             onDoubleClick={() => this.handleDoubleClick()} 
             onMouseLeave={() => this.handleMouseLeave()}
@@ -91,7 +93,7 @@ class Card extends Component {
     }
     else {
       return this.props.connectDragSource(this.props.connectDropTarget(
-        <div style={{ opacity }}>
+        <div className="Card" style={{ opacity }}>
           <ListGroupItem 
             onDoubleClick={() => this.handleDoubleClick()} 
             onMouseEnter={() => this.handleMouseEnter()}

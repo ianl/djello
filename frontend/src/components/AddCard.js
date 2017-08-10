@@ -7,7 +7,7 @@ import { Button, Form, FormControl, Glyphicon } from 'react-bootstrap';
 class AddCard extends Component {
   render() {
     return (
-      <div>
+      <div className="AddCard">
         <Form inline
           onSubmit={e => {
             e.preventDefault();

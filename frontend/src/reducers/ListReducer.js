@@ -33,9 +33,59 @@ export default (state, action) => {
         (list.id === action.card.list) ? CardReducer(list, action) : list
       )
     case MOVE_CARD:
-      return state.map(list =>
-        (list.id === action.dragList) ? CardReducer(list, action) : list
-      )
+      let dragCard;
+      let newState = state.map(list => {
+        if (list.id === action.dragList) {
+          dragCard = list.cards[action.dragIndex];
+          return {
+            ...list,
+            cards: [
+              ...list.cards.slice(0, action.dragIndex),
+              ...list.cards.slice(action.dragIndex + 1)
+            ]
+          }
+        }
+        else {
+          return list;
+        }
+      })
+
+      dragCard.list = action.hoverList;
+      return newState.map(list => {
+        if (list.id === action.hoverList) {
+          if (action.hoverIndex === 0) {
+            return {
+              ...list,
+              cards: [
+                dragCard,
+                ...list.cards
+              ]
+            }
+          }
+          else if (action.hoverIndex === list.cards.length - 1) {
+            return {
+              ...list,
+              cards: [
+                ...list.cards,
+                dragCard
+              ]
+            }
+          }
+          else {
+            return {
+              ...list,
+              cards: [
+                ...list.cards.slice(0, action.hoverIndex),
+                dragCard,
+                ...list.cards.slice(action.hoverIndex + 1)
+              ]
+            }
+          }
+        }
+        else {
+          return list;
+        }
+      })
     default:
       return state;
   }
