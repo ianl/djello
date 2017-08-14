@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { DragDropContext, DropTarget } from 'react-dnd';
-import ItemTypes from './ItemTypes';
-import HTML5Backend from 'react-dnd-html5-backend';
 
 import Card from '../containers/Card';
 import AddCard from '../containers/AddCard';
-
 import { Button, Glyphicon, Panel, ListGroup } from 'react-bootstrap';
 
 class List extends Component {
@@ -75,45 +71,21 @@ class List extends Component {
   }
 }
 
-// Drag Target
-const listTarget = {
-  hover(props, monitor, component) {
-    const dragList = monitor.getItem().list;
-    const dragIndex = monitor.getItem().index;
-
-    const hoverList = props.id;
-
-    if (dragList === hoverList) {
-      return;
-    }
-
-    if (props.cards.length > 0) {
-      return;
-    }
-
-    props.moveCardToEmptyList(dragList, dragIndex, hoverList);
-
-    monitor.getItem().list = hoverList;
-    monitor.getItem().index = 0;
-  }
-};
-
-const targetCollect = connect => ({
-  connectDropTarget: connect.dropTarget()
-});
-
-List = DropTarget(ItemTypes.CARD, listTarget, targetCollect)(List);
-
 List.propTypes = {
-  onDeleteList: PropTypes.func.isRequired,
-  moveCardToEmptyList: PropTypes.func.isRequired,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  board: PropTypes.number,
   cards: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       text: PropTypes.string.isRequired,
       list: PropTypes.number.isRequired
     }).isRequired
-  ).isRequired
+  ).isRequired,
+  onDeleteList: PropTypes.func.isRequired,
+  moveCardToEmptyList: PropTypes.func.isRequired,
+
+  connectDropTarget: PropTypes.func.isRequired
 }
 
-export default DragDropContext(HTML5Backend)(List);
+export default List;
