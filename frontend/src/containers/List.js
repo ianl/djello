@@ -11,9 +11,9 @@ const mapDispatchToProps = dispatch => ({
   onDeleteList: list => {
     dispatch(deleteList(list));
   },
-  moveCardToEmptyList: (dragList, dragIndex, hoverList) => {
+  moveCardToEmptyList: (dragList, dragIndex, hoverList, dragID) => {
     console.log(dragList + ":" + dragIndex + " to " + hoverList + ":0");
-    dispatch(moveCard(dragList, dragIndex, hoverList, 0));
+    dispatch(moveCard(dragList, dragIndex, hoverList, 0, dragID));
   }
 })
 
@@ -24,11 +24,12 @@ const listTarget = {
     const dragList = monitor.getItem().list;
     const dragIndex = monitor.getItem().index;
     const hoverList = props.id;
+    const dragID = monitor.getItem().id;
 
     if (dragList === hoverList) return;
     if (props.cards.length > 0) return;
 
-    props.moveCardToEmptyList(dragList, dragIndex, hoverList);
+    props.moveCardToEmptyList(dragList, dragIndex, hoverList, dragID);
 
     monitor.getItem().list = hoverList;
     monitor.getItem().index = 0;

@@ -10,6 +10,7 @@ import {
   DELETE_CARD_FAILURE,
 
   MOVE_CARD,
+  MOVE_CARD_FAILURE,
 
 // LIST
   ADD_LIST,
@@ -128,12 +129,38 @@ export const deleteCardFailure = error => ({
 })
 
 // Others
-export const moveCard = (dragList, dragIndex, hoverList, hoverIndex) => ({
+export const moveCard = (dragList, dragIndex, hoverList, hoverIndex, dragID) => {
+  return dispatch => {
+    return axios({
+      method: 'PUT',
+      url: 'http://localhost:8000/api/cards/' + dragID + '/',
+      data: {
+        "list": hoverList
+      }
+    })
+    .then(response => {
+      console.log("MOVE Card:");
+      console.log(response.data);
+      dispatch(moveCardSuccess(dragList, dragIndex, hoverList, hoverIndex));
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(moveCardFailure(error));
+    });  
+  }
+}
+
+export const moveCardSuccess = (dragList, dragIndex, hoverList, hoverIndex) => ({
   type: MOVE_CARD,
   dragList,
   dragIndex,
   hoverList,
   hoverIndex
+})
+
+export const moveCardFailure = error => ({
+  type: MOVE_CARD_FAILURE,
+  error
 })
 
 /* LIST */

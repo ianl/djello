@@ -14,9 +14,9 @@ const mapDispatchToProps = dispatch => ({
   onUpdateCard: card => {
     dispatch(updateCard(card));
   },
-  moveCard: (dragList, dragIndex, hoverList, hoverIndex) => {
+  moveCard: (dragList, dragIndex, hoverList, hoverIndex, dragID) => {
     console.log(dragList + ":" + dragIndex + " to " + hoverList + ":" + hoverIndex);
-    dispatch(moveCard(dragList, dragIndex, hoverList, hoverIndex));
+    dispatch(moveCard(dragList, dragIndex, hoverList, hoverIndex, dragID));
   }
 })
 
@@ -45,6 +45,8 @@ const cardTarget = {
 
     const hoverList = props.list;
     const hoverIndex = props.index;
+
+    const dragID = monitor.getItem().id;
 
     // Don't replace items with themselves
     if (dragList === hoverList && dragIndex === hoverIndex) {
@@ -78,7 +80,7 @@ const cardTarget = {
     }
 
     // Time to actually perform the action
-    props.moveCard(dragList, dragIndex, hoverList, hoverIndex);
+    props.moveCard(dragList, dragIndex, hoverList, hoverIndex, dragID);
 
     // Note: we're mutating the monitor item here!
     // Generally it's better to avoid mutations,

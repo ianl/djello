@@ -8,6 +8,7 @@ export const PUT_CARD_FAILURE = 'PUT_CARD_FAILURE';
 export const DELETE_CARD_FAILURE = 'DELETE_CARD_FAILURE';
 
 export const MOVE_CARD = 'MOVE_CARD';
+export const MOVE_CARD_FAILURE = 'MOVE_CARD_FAILURE';
 
 // Lists
 export const ADD_LIST = 'ADD_LIST';
