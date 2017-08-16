@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { normalize } from 'normalizr';
+import boardSchema from '../schemas';
 import {
 // CARD
   ADD_CARD,
@@ -266,6 +268,11 @@ export const getBoard = id => {
     .then(response => {
       console.log("GET Board:");
       console.log(response.data);
+
+      console.log("Normalized:");
+      const normalized = normalize(response.data, boardSchema);
+      console.log(normalized);
+
       dispatch(getBoardSuccess(response.data));
     })
     .catch(error => {
