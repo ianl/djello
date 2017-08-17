@@ -1,16 +1,20 @@
 import { schema } from 'normalizr';
 
-// Cards
+// Board
 const card = new schema.Entity('cards');
 
-// Lists
 const list = new schema.Entity('lists', {
   cards: [ card ]
 });
 
-// Boards
 const board = new schema.Entity('boards', { 
   lists: [ list ]
 });
 
-export default board;
+// Boards
+const boards = [ board ];
+
+export default {
+  boards,
+  board
+}

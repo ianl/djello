@@ -6,12 +6,16 @@ import AddBoard from '../containers/AddBoard';
 
 import { Col } from 'react-bootstrap';
 
-class Home extends Component {
+class Boards extends Component {
   componentWillMount() {
     this.props.onEnter();
   }
 
   render() {
+    console.log(
+      "state.Boards",
+      this.props.state
+    );
     return (
       <div>
         {this.props.boards.map(board => (
@@ -25,7 +29,7 @@ class Home extends Component {
   }
 }
 
-Home.propTypes = {
+Boards.propTypes = {
   onEnter: PropTypes.func.isRequired,
   boards: PropTypes.arrayOf(
     PropTypes.shape({
@@ -35,4 +39,4 @@ Home.propTypes = {
   ).isRequired
 }
 
-export default Home;
+export default Boards;

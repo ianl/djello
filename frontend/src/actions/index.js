@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { normalize } from 'normalizr';
-import boardSchema from '../schemas';
+import schema from './schema';
 import {
 // CARD
   ADD_CARD,
@@ -48,8 +48,10 @@ export const addCard = (list, text) => {
       }
     })
     .then(response => {
-      console.log("POST Card:");
-      console.log(response.data);
+      console.log(
+        "POST Card:",
+        response.data
+      );
       dispatch(postCardSuccess(response.data));
     })
     .catch(error => {
@@ -81,8 +83,10 @@ export const updateCard = card => {
       }
     })
     .then(response => {
-      console.log("PUT Card:");
-      console.log(response.data);
+      console.log(
+        "PUT Card:",
+        response.data
+      );
       dispatch(putCardSuccess(response.data));
     })
     .catch(error => {
@@ -141,8 +145,10 @@ export const moveCard = (dragList, dragIndex, hoverList, hoverIndex, dragID) => 
       }
     })
     .then(response => {
-      console.log("MOVE Card:");
-      console.log(response.data);
+      console.log(
+        "MOVE Card:",
+        response.data
+      );
       dispatch(moveCardSuccess(dragList, dragIndex, hoverList, hoverIndex));
     })
     .catch(error => {
@@ -178,8 +184,10 @@ export const addList = (board, name) => {
       }
     })
     .then(response => {
-      console.log("POST List:");
-      console.log(response.data);
+      console.log(
+        "POST List:",
+        response.data
+      );
       dispatch(postListSuccess(response.data));
     })
     .catch(error => {
@@ -237,9 +245,17 @@ export const getBoards = () => {
       headers: []
     })
     .then(response => {
-      console.log("GET Boards:");
-      console.log(response.data);
-      dispatch(getBoardsSuccess(response.data));
+      console.log(
+        "GET Boards:",
+        response.data
+      );
+
+      console.log(
+        "Normalized:",
+        normalize(response.data, schema.boards)
+      );
+
+      dispatch(getBoardsSuccess(normalize(response.data, schema.boards)));
     })
     .catch(error => {
       console.log(error);
@@ -248,9 +264,9 @@ export const getBoards = () => {
   }
 }
 
-export const getBoardsSuccess = boards => ({
+export const getBoardsSuccess = response => ({
   type: GET_BOARDS,
-  boards
+  response
 })
 
 export const getBoardsFailure = error => ({
@@ -266,12 +282,15 @@ export const getBoard = id => {
       headers: []
     })
     .then(response => {
-      console.log("GET Board:");
-      console.log(response.data);
+      console.log(
+        "GET Board:",
+        response.data
+      );
 
-      console.log("Normalized:");
-      const normalized = normalize(response.data, boardSchema);
-      console.log(normalized);
+      console.log(
+        "Normalized:",
+        normalize(response.data, schema.board)
+      );
 
       dispatch(getBoardSuccess(response.data));
     })
@@ -303,8 +322,10 @@ export const addBoard = name => {
       }
     })
     .then(response => {
-      console.log("POST Board:");
-      console.log(response.data);
+      console.log(
+        "POST Board:",
+        response.data
+      );
       dispatch(postBoardSuccess(response.data));
     })
     .catch(error => {
