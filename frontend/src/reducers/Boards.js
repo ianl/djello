@@ -10,7 +10,6 @@ const byId = (state = {}, action) => {
   switch (action.type) {
     case GET_BOARDS:
       return {
-        ...state,
         ...action.response.entities.boards
       }
     case ADD_BOARD:
@@ -29,7 +28,6 @@ const allIds = (state = [], action) => {
   switch (action.type) {
     case GET_BOARDS:
       return [
-        ...state,
         ...action.response.result
       ]
     case ADD_BOARD:
@@ -49,7 +47,7 @@ const allIds = (state = [], action) => {
 // Selectors
 export const selectBoards = state => {
   return state.allIds.map(id => {
-    return state.byId[id];
+    return { ...state.byId[id] };
   });
 }
 

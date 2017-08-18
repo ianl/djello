@@ -12,13 +12,17 @@ class Board extends Component {
   }
 
   render() {
+    console.log(
+      "state.Board",
+      this.props.state
+    );
     return (
       <div>
         <PageHeader>
           {this.props.board.name}
           <small>(id: {this.props.board.id})</small>
         </PageHeader>
-        {this.props.board.lists.map(list => (
+        {this.props.lists.map(list => (
           <Col sm={6} md={3} key={list.id}>
             <List {...list} />
           </Col>
@@ -36,25 +40,22 @@ Board.propTypes = {
       id: PropTypes.number,
       name: PropTypes.string,
       lists: PropTypes.arrayOf(
-        PropTypes.shape({
+        PropTypes.number.isRequired
+      )
 
-          id: PropTypes.number,
-          name: PropTypes.string,
-          board: PropTypes.number,
-          cards: PropTypes.arrayOf(
-            PropTypes.shape({
+  }).isRequired,
+  lists: PropTypes.arrayOf(
+    PropTypes.shape({
 
-              id: PropTypes.number,
-              text: PropTypes.string,
-              list: PropTypes.number
-
-            }).isRequired
-          ).isRequired
-
-        }).isRequired
+      id: PropTypes.number,
+      name: PropTypes.string,
+      board: PropTypes.number,
+      cards: PropTypes.arrayOf(
+        PropTypes.number.isRequired
       ).isRequired
 
-  }).isRequired
+    }).isRequired
+  ).isRequired
 }
 
 export default Board;

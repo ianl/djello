@@ -135,11 +135,11 @@ export const deleteCardFailure = error => ({
 })
 
 // Others
-export const moveCard = (dragList, dragIndex, hoverList, hoverIndex, dragID) => {
+export const moveCard = (dragList, dragIndex, hoverList, hoverIndex, dragId) => {
   return dispatch => {
     return axios({
       method: 'PUT',
-      url: 'http://localhost:8000/api/cards/' + dragID + '/',
+      url: 'http://localhost:8000/api/cards/' + dragId + '/',
       data: {
         "list": hoverList
       }
@@ -149,7 +149,7 @@ export const moveCard = (dragList, dragIndex, hoverList, hoverIndex, dragID) => 
         "MOVE Card:",
         response.data
       );
-      dispatch(moveCardSuccess(dragList, dragIndex, hoverList, hoverIndex));
+      dispatch(moveCardSuccess(dragList, dragIndex, hoverList, hoverIndex, dragId));
     })
     .catch(error => {
       console.log(error);
@@ -158,12 +158,13 @@ export const moveCard = (dragList, dragIndex, hoverList, hoverIndex, dragID) => 
   }
 }
 
-export const moveCardSuccess = (dragList, dragIndex, hoverList, hoverIndex) => ({
+export const moveCardSuccess = (dragList, dragIndex, hoverList, hoverIndex, dragId) => ({
   type: MOVE_CARD,
   dragList,
   dragIndex,
   hoverList,
-  hoverIndex
+  hoverIndex,
+  dragId
 })
 
 export const moveCardFailure = error => ({
@@ -250,12 +251,13 @@ export const getBoards = () => {
         response.data
       );
 
+      const normalizedData = normalize(response.data, schema.boards);
       console.log(
         "Normalized:",
-        normalize(response.data, schema.boards)
+        normalizedData
       );
 
-      dispatch(getBoardsSuccess(normalize(response.data, schema.boards)));
+      dispatch(getBoardsSuccess(normalizedData));
     })
     .catch(error => {
       console.log(error);
@@ -287,12 +289,13 @@ export const getBoard = id => {
         response.data
       );
 
+      const normalizedData = normalize(response.data, schema.board);
       console.log(
         "Normalized:",
-        normalize(response.data, schema.board)
+        normalizedData
       );
 
-      dispatch(getBoardSuccess(response.data));
+      dispatch(getBoardSuccess(normalizedData));
     })
     .catch(error => {
       console.log(error);
@@ -301,9 +304,9 @@ export const getBoard = id => {
   }
 }
 
-export const getBoardSuccess = board => ({
+export const getBoardSuccess = response => ({
   type: GET_BOARD,
-  board
+  response
 })
 
 export const getBoardFailure = error => ({

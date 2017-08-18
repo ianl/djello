@@ -60,8 +60,8 @@ class List extends Component {
       <div>
         <Panel header={this.panelHeader()} bsStyle="info">
           <ListGroup>
-            {this.props.cards.map((card, i) => (
-              <Card key={card.id} index={i} {...card} />
+            {this.props.cards.map((id, i) => (
+              <Card key={id} index={i} {...this.props.selectCard(id)} />
             ))}
           </ListGroup>
           <AddCard list={this.props} />
@@ -76,11 +76,7 @@ List.propTypes = {
   name: PropTypes.string,
   board: PropTypes.number,
   cards: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      text: PropTypes.string.isRequired,
-      list: PropTypes.number.isRequired
-    }).isRequired
+    PropTypes.number.isRequired
   ).isRequired,
   onDeleteList: PropTypes.func.isRequired,
   moveCardToEmptyList: PropTypes.func.isRequired,

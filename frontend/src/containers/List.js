@@ -7,13 +7,21 @@ import ItemTypes from './ItemTypes';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { compose } from 'redux';
 
+import { selectCard } from '../reducers/Board';
+
+const mapStateToProps = state => ({
+  selectCard: (cardId) => {
+    return selectCard(state.Board, cardId);
+  }
+})
+
 const mapDispatchToProps = dispatch => ({
   onDeleteList: list => {
     dispatch(deleteList(list));
   },
-  moveCardToEmptyList: (dragList, dragIndex, hoverList, dragID) => {
+  moveCardToEmptyList: (dragList, dragIndex, hoverList, dragId) => {
     console.log(dragList + ":" + dragIndex + " to " + hoverList + ":0");
-    dispatch(moveCard(dragList, dragIndex, hoverList, 0, dragID));
+    dispatch(moveCard(dragList, dragIndex, hoverList, 0, dragId));
   }
 })
 
@@ -42,7 +50,7 @@ const targetCollect = connect => ({
 
 const composeHOC = compose(
   DragDropContext(HTML5Backend),
-  connect(null, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   DropTarget(ItemTypes.CARD, listTarget, targetCollect)
 );
 

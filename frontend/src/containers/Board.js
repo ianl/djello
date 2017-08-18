@@ -1,9 +1,12 @@
 import { connect } from 'react-redux';
 import { getBoard } from '../actions';
 import Board from '../components/Board';
+import { selectBoard, selectLists } from '../reducers/Board';
 
 const mapStateToProps = state => ({
-  board: state.BoardReducer.board
+  board: selectBoard(state.Board),
+  lists: selectLists(state.Board),
+  state: state.Board
 })
 
 const mapDispatchToProps = dispatch => ({
