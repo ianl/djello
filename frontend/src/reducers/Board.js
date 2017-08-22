@@ -197,8 +197,8 @@ export const selectList = (state, listId) => {
   return { ...state.lists.byId[listId] };
 }
 
-export const selectCard = (state, cardsId) => {
-  return { ...state.cards.byId[cardsId] };
+export const selectCard = (state, cardId) => {
+  return { ...state.cards.byId[cardId] };
 }
 
 export default combineReducers({
