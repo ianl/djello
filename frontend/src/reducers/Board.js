@@ -42,7 +42,7 @@ const boardsReducer = combineReducers({
 
 // listsReducer
 const listsById = (state = {}, action) => {
-  let cards;
+  let cards, cards_order;
   switch (action.type) {
     case GET_BOARD:
       return {
@@ -60,7 +60,7 @@ const listsById = (state = {}, action) => {
         ...state,
         [action.card.list]: {
           ...state[action.card.list],
-          cards: [
+          cards_order: [
             ...state[action.card.list].cards,
             action.card.id
           ]
@@ -83,37 +83,37 @@ const listsById = (state = {}, action) => {
         ...state,
         [action.dragList]: {
           ...state[action.dragList],
-          cards: [
-            ...state[action.dragList].cards.slice(0, action.dragIndex),
-            ...state[action.dragList].cards.slice(action.dragIndex + 1)
+          cards_order: [
+            ...state[action.dragList].cards_order.slice(0, action.dragIndex),
+            ...state[action.dragList].cards_order.slice(action.dragIndex + 1)
           ]
         }
       }   
       // Insert card into hoverList
       if (action.hoverIndex === 0) {
-        cards = [
+        cards_order = [
           action.dragId,
-          ...newState[action.hoverList].cards
+          ...newState[action.hoverList].cards_order
         ];
       }
-      else if (action.hoverIndex === newState[action.hoverList].cards.length - 1) {
-        cards = [
-          ...newState[action.hoverList].cards,
+      else if (action.hoverIndex === newState[action.hoverList].cards_order.length - 1) {
+        cards_order = [
+          ...newState[action.hoverList].cards_order,
           action.dragId
         ];        
       }
       else {
-        cards = [
-          ...newState[action.hoverList].cards.slice(0, action.hoverIndex),
+        cards_order = [
+          ...newState[action.hoverList].cards_order.slice(0, action.hoverIndex),
           action.dragId,
-          ...newState[action.hoverList].cards.slice(action.hoverIndex + 1)
+          ...newState[action.hoverList].cards_order.slice(action.hoverIndex + 1)
         ]       
       }
       return {
         ...newState,
         [action.hoverList]: {
           ...newState[action.hoverList],
-          cards
+          cards_order
         }
       }       
     default:
@@ -191,6 +191,10 @@ export const selectLists = state => {
   return state.lists.allIds.map(id => {
     return { ...state.lists.byId[id] };
   });
+}
+
+export const selectList = (state, listId) => {
+  return { ...state.lists.byId[listId] };
 }
 
 export const selectCard = (state, cardsId) => {

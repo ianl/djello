@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { normalize } from 'normalizr';
 import schema from './schema';
+import { selectList } from '../reducers/Board';
 import {
 // CARD
   ADD_CARD,
@@ -31,7 +32,7 @@ import {
   GET_BOARD_FAILURE,
   POST_BOARD_FAILURE,
   DELETE_BOARD_FAILURE
-} from './types';
+} from './types'; 
 axios.defaults.xsrfHeaderName = "HTTP_X_CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
@@ -136,9 +137,9 @@ export const deleteCardFailure = error => ({
 
 // Others
 export const moveCard = (dragList, dragIndex, hoverList, hoverIndex, dragId) => {
-  return dispatch => {
+  return (dispatch, getState) => {
     return axios({
-      method: 'PUT',
+      method: 'PATCH',
       url: 'http://localhost:8000/api/cards/' + dragId + '/',
       data: {
         "list": hoverList
@@ -150,6 +151,23 @@ export const moveCard = (dragList, dragIndex, hoverList, hoverIndex, dragId) => 
         response.data
       );
       dispatch(moveCardSuccess(dragList, dragIndex, hoverList, hoverIndex, dragId));
+      // Update lists' cards_order
+      if (dragList === hoverList) {
+        dispatch(updateCardsOrder(
+          hoverList, 
+          selectList(getState().Board, hoverList).cards_order
+        ));
+      }
+      else {
+        dispatch(updateCardsOrder(
+          dragList, 
+          selectList(getState().Board, dragList).cards_order
+        ));
+        dispatch(updateCardsOrder(
+          hoverList, 
+          selectList(getState().Board, hoverList).cards_order
+        ));
+      }
     })
     .catch(error => {
       console.log(error);
@@ -171,6 +189,27 @@ export const moveCardFailure = error => ({
   type: MOVE_CARD_FAILURE,
   error
 })
+
+export const updateCardsOrder = (listId, cardsOrder) => {
+  return dispatch => {
+    return axios({
+      method: 'PATCH',
+      url: 'http://localhost:8000/api/lists/' + listId + '/',
+      data: {
+        "cards_order": cardsOrder
+      }
+    })
+    .then(response => {
+      console.log(
+        "PATCH cards_order of List(id: " + listId + ")",
+        response.data
+      );
+    })
+    .catch(error => {
+      console.log(error);
+    });  
+  }
+}
 
 /* LIST */
 // POST

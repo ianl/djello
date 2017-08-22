@@ -8,4 +8,4 @@ class ListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = List
-        fields = ('id', 'name', 'board', 'cards')
+        fields = ('id', 'name', 'cards_order', 'board', 'cards')

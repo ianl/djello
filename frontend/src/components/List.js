@@ -60,7 +60,7 @@ class List extends Component {
       <div>
         <Panel header={this.panelHeader()} bsStyle="info">
           <ListGroup>
-            {this.props.cards.map((id, i) => (
+            {this.props.cards_order.map((id, i) => (
               <Card key={id} index={i} {...this.props.selectCard(id)} />
             ))}
           </ListGroup>
