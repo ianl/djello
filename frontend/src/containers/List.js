@@ -35,7 +35,7 @@ const listTarget = {
     const dragId = monitor.getItem().id;
 
     if (dragList === hoverList) return;
-    if (props.cards.length > 0) return;
+    if (props.cards_order.length > 0) return;
 
     props.moveCardToEmptyList(dragList, dragIndex, hoverList, dragId);
 
