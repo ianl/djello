@@ -5,19 +5,21 @@ import ReactDOM from 'react-dom';
 import { Button, Form, FormControl, Glyphicon } from 'react-bootstrap';
 
 class AddList extends Component {
+  handleSubmit = e => {
+    e.preventDefault();
+    let input = ReactDOM.findDOMNode(this.refs.myInput);
+    if (!input.value.trim()) {
+      return;
+    }
+    this.props.onAddList(this.props.board, input.value);
+    input.value = '';    
+  }
+
   render() {
     return (
       <div>
         <Form inline
-          onSubmit={e => {
-            e.preventDefault();
-            let input = ReactDOM.findDOMNode(this.refs.myInput);
-            if (!input.value.trim()) {
-              return;
-            }
-            this.props.onAddList(this.props.board, input.value);
-            input.value = '';
-          }}
+          onSubmit={e => this.handleSubmit(e)}
         >
           <FormControl 
             placeholder="Add New List"
