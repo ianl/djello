@@ -42,7 +42,7 @@ const boardsReducer = combineReducers({
 
 // listsReducer
 const listsById = (state = {}, action) => {
-  let cards, cards_order;
+  let cards_order;
   switch (action.type) {
     case GET_BOARD:
       return {
@@ -61,20 +61,20 @@ const listsById = (state = {}, action) => {
         [action.card.list]: {
           ...state[action.card.list],
           cards_order: [
-            ...state[action.card.list].cards,
+            ...state[action.card.list].cards_order,
             action.card.id
           ]
         }
       }
     case DELETE_CARD:
-      cards = state[action.card.list].cards.filter(id => {
+      cards_order = state[action.card.list].cards_order.filter(id => {
         return id !== action.card.id
       });
       return {
         ...state,
         [action.card.list]: {
           ...state[action.card.list],
-          cards
+          cards_order
         }
       }
     case MOVE_CARD:

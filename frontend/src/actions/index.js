@@ -39,7 +39,7 @@ axios.defaults.xsrfCookieName = "csrftoken";
 /* CARD */
 // POST
 export const addCard = (list, text) => {
-  return dispatch => {
+  return (dispatch, getState) => {
     return axios({
       method: 'POST',
       url: 'http://localhost:8000/api/cards/',
@@ -54,6 +54,11 @@ export const addCard = (list, text) => {
         response.data
       );
       dispatch(postCardSuccess(response.data));
+      // Update list's cards_order
+      dispatch(updateCardsOrder(
+        list.id, 
+        selectList(getState().Board, list.id).cards_order
+      ));
     })
     .catch(error => {
       console.log(error);
@@ -109,7 +114,7 @@ export const putCardFailure = error => ({
 
 // DELETE
 export const deleteCard = card => {
-  return dispatch => {
+  return (dispatch, getState) => {
     return axios({
       method: 'DELETE',
       url: 'http://localhost:8000/api/cards/' + card.id + '/'
@@ -117,6 +122,11 @@ export const deleteCard = card => {
     .then(response => {
       console.log("DELETE Card(id: " + card.id + ")");
       dispatch(deleteCardSuccess(card));
+      // Update list's cards_order
+      dispatch(updateCardsOrder(
+        card.list, 
+        selectList(getState().Board, card.list).cards_order
+      ));
     })
     .catch(error => {
       console.log(error);
