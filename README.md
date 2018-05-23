@@ -42,9 +42,9 @@ DATABASES = {
 4. Open http://localhost:3000
 
 ## Testing the APIs
-> http://localhost:8000/api/boards/
-> http://localhost:8000/api/lists/
-> http://localhost:8000/api/cards/
+> 1. http://localhost:8000/api/boards/
+> 2. http://localhost:8000/api/lists/
+> 3. http://localhost:8000/api/cards/
 
 ## Key Features
 * Uses `React DnD` for drag-and-drop / sorting of cards within a list and across lists
