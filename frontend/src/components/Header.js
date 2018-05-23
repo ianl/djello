@@ -6,15 +6,18 @@ import { Navbar, Nav, NavItem, Popover, OverlayTrigger } from 'react-bootstrap';
 class Header extends Component {
   popoverClick = (
     <Popover id="popover-trigger-click" title="About Djello">
-      <p>A lite Trello clone built with React, Redux and Django Rest Framework.</p>
+      <p>A simplified Trello clone built with <em>React</em>, <em>Redux</em> and <em>Django REST framework</em>.</p>
       <hr/>
-      <h4>About Ian Liu</h4>
+      <h4>Hello, I'm Ian!</h4>
       <p>
-        <small>I'm an aspiring developer, a pianist, and a YouTube content creator.</small>
+        <small>
+          I am an aspiring software engineer with a Computer Science / Information Systems background 
+          from The University of Hong Kong.
+        </small>
       </p>
       <p>
         <small>
-          I'm looking for engineering opportunities to work with great people
+          I am currently looking for (remote) engineering opportunities to work with great people
           and to solve problems that matter.
         </small>
       </p>
